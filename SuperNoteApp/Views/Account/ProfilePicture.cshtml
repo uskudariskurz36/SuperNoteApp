@@ -1,0 +1,29 @@
+﻿@model ProfilePictureModel
+
+<div class="row mb-3">
+    <div class="col">
+        <h1 class="display-4 border-bottom">Change Profile Picture</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <img class="img-thumbnail rounded-circle" src="/img/@ViewData["PictureName"]" width="200" height="200" />
+    </div>
+
+    <div class="col-sm-9 my-auto">
+        <form method="post" enctype="multipart/form-data">
+            <div class="d-flex align-items-center">
+                <input type="file" class="form-control" asp-for="NewPicture" accept=".png, .jpeg, .jpg" />
+            </div>
+            <div>
+                <span class="text-danger small" asp-validation-for="NewPicture"></span>
+            </div>
+            <div class="mt-2 text-end">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save me-2"></i>Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
