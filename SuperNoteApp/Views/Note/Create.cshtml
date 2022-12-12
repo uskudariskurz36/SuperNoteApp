@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<div class="row mb-3">
+    <div class="col">
+        <h1 class="display-4 border-bottom">Create New Note</h1>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-4 offset-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label class="col-form-label">Title</label>
+                <input class="form-control" placeholder="Lorem ipsum" />
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Description</label>
+                <textarea rows="4" class="form-control" placeholder="Lorem ipsum dolor sit a met."></textarea>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" />
+                <label class="col-form-label">Is Draft</label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-sm">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
