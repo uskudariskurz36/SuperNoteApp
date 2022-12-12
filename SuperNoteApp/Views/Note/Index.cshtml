@@ -1,4 +1,7 @@
 ﻿@using MFramework.Services.FakeData
+@using SuperNoteApp.Entities;
+@model List<Note>
+
 
 <div class="row mb-3">
     <div class="col">
@@ -28,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < 10; i++)
+                @foreach (Note n in Model)
                 {
                     <tr>
                         <td>
@@ -39,11 +42,11 @@
                                 <i class="fa fa-trash me-2"></i>Delete
                             </a>
                         </td>
-                        <td>@i</td>
-                        <td>@NameData.GetCompanyName()</td>
-                        <td>@TextData.GetSentence()</td>
+                        <td>@n.Id</td>
+                        <td>@n.Title</td>
+                        <td>@n.Description</td>
                         <td>
-                            @if (BooleanData.GetBoolean())
+                            @if (n.IsDraft)
                             {
                                 <i class="fa fa-check-circle text-success"></i>
                             }
@@ -52,7 +55,7 @@
                                 <i class="fa fa-times text-danger"></i>
                             }
                         </td>
-                        <td>@DateTimeData.GetDatetime()</td>
+                        <td>@n.CreatedDate</td>
                     </tr>
                 }
             </tbody>

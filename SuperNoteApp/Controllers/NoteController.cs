@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SuperNoteApp.Entities;
+using SuperNoteApp.Helpers;
 
 namespace SuperNoteApp.Controllers
 {
@@ -13,7 +15,10 @@ namespace SuperNoteApp.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            return View();
+            NoteManager noteManager = new NoteManager();
+            List<Note> notes = noteManager.GetNotesbyUserId(userid.Value);
+
+            return View(notes);
         }
     }
 }

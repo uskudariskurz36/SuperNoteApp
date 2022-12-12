@@ -1,7 +1,5 @@
 ﻿using SuperNoteApp.Entities;
 using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Linq;
 
 namespace SuperNoteApp.Helpers
 {
