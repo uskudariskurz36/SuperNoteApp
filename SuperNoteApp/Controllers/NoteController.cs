@@ -20,5 +20,15 @@ namespace SuperNoteApp.Controllers
 
             return View(notes);
         }
+
+
+
+        public IActionResult GenerateData()
+        {
+            NoteManager noteManager = new NoteManager();
+            noteManager.GenerateFakeData();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
