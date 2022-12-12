@@ -1,5 +1,6 @@
 ﻿using MFramework.Services.FakeData;
 using SuperNoteApp.Entities;
+using SuperNoteApp.Models.NoteModels;
 
 namespace SuperNoteApp.Helpers
 {
@@ -11,8 +12,8 @@ namespace SuperNoteApp.Helpers
         {
             // Select * From Notes Where UserId=@userId
             List<Note> notes = (from n in db.Notes
-                               where n.UserId == userId
-                               select n).ToList();
+                                where n.UserId == userId
+                                select n).ToList();
 
             return notes;
         }
@@ -41,6 +42,46 @@ namespace SuperNoteApp.Helpers
 
                 db.Notes.Add(note);
             }
+
+            db.SaveChanges();
+        }
+
+        public void CreateNote(int userId, NoteCreateModel model)
+        {
+            Note note = new Note()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                IsDraft = model.IsDraft,
+                CreatedDate = DateTime.Now,
+                UserId = userId,
+            };
+
+            db.Notes.Add(note);
+            db.SaveChanges();
+        }
+
+        public Note GetNoteById(int id)
+        {
+            Note note = (from n in db.Notes
+                         where n.Id == id
+                         select n).FirstOrDefault();
+
+            return note;
+        }
+
+        public void EditById(int id, NoteEditModel model)
+        {
+            Note note = GetNoteById(id);
+
+            if (note == null)
+            {
+                return;
+            }
+
+            note.Title = model.Title;
+            note.Description = model.Description;
+            note.IsDraft = model.IsDraft;
 
             db.SaveChanges();
         }

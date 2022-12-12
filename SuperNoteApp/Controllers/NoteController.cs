@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SuperNoteApp.Entities;
 using SuperNoteApp.Helpers;
+using SuperNoteApp.Models.NoteModels;
 
 namespace SuperNoteApp.Controllers
 {
@@ -35,7 +36,7 @@ namespace SuperNoteApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string s)
+        public IActionResult Create(NoteCreateModel model)
         {
             int? userid = HttpContext.Session.GetInt32("userid");
 
@@ -44,9 +45,60 @@ namespace SuperNoteApp.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Insert kodları gelecek.
+            if (ModelState.IsValid)
+            {
+                NoteManager noteManager = new NoteManager();
+                noteManager.CreateNote(userid.Value, model);
 
-            return View();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            int? userid = HttpContext.Session.GetInt32("userid");
+
+            if (userid == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            NoteManager noteManager = new NoteManager();
+            Note note = noteManager.GetNoteById(id);
+
+            // Kayıt başkası tarafından silinmiş ise
+            // note = null gelecek. Dolayısı ile Index e yönlendiririz.
+            // Böylece veriler tekrar listelenir ve silinen kayıtlar gelmemiş olur.
+            if (note == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            NoteEditModel model = new NoteEditModel()
+            {
+                Title = note.Title,
+                Description= note.Description,
+                IsDraft=note.IsDraft,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, NoteEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                NoteManager noteManager = new NoteManager();
+                noteManager.EditById(id, model);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
         }
 
         public IActionResult GenerateData()

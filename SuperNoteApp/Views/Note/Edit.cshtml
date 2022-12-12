@@ -1,9 +1,9 @@
 ﻿@using SuperNoteApp.Models.NoteModels;
-@model NoteCreateModel
+@model NoteEditModel
 
 <div class="row mb-3">
     <div class="col">
-        <h1 class="display-4 border-bottom">Create New Note</h1>
+        <h1 class="display-4 border-bottom">Edit Note</h1>
     </div>
 </div>
 
@@ -26,7 +26,7 @@
                 <label asp-for="IsDraft" class="col-form-label">Is Draft</label>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-sm">Create</button>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
                 <a class="btn btn-secondary btn-sm" asp-action="Index">Back to List!</a>
             </div>
         </form>

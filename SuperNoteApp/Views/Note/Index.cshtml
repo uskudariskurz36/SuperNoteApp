@@ -36,11 +36,11 @@
                     {
                     <tr>
                         <td>
-                            <a asp-action="Edit" class="btn btn-info btn-sm text-white">
+                                <a asp-action="Edit" asp-route-id="@n.Id" class="btn btn-info btn-sm text-white">
                                 <i class="fa fa-edit"></i>
                                 <span class="d-none d-sm-inline ms-2">Edit</span>
                             </a>
-                            <a asp-action="Delete" class="btn btn-danger btn-sm">
+                                <a asp-action="Delete" asp-route-id="@n.Id" class="btn btn-danger btn-sm">
                                 <i class="fa fa-trash"></i>
                                 <span class="d-none d-sm-inline ms-2">Delete</span>
                             </a>
