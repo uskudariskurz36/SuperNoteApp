@@ -1,4 +1,6 @@
 ﻿using MFramework.Services.FakeData;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using SuperNoteApp.Entities;
 using SuperNoteApp.Models.NoteModels;
 
@@ -82,8 +84,22 @@ namespace SuperNoteApp.Helpers
             note.Title = model.Title;
             note.Description = model.Description;
             note.IsDraft = model.IsDraft;
+            note.ModifiedDate= DateTime.Now;
 
             db.SaveChanges();
+        }
+
+        public void RemoveById(int id)
+        {
+            Note note = (from n in db.Notes
+                        where n.Id == id
+                        select n).FirstOrDefault();
+
+            if (note != null)
+            {
+                db.Notes.Remove(note);
+                db.SaveChanges();
+            }
         }
     }
 }

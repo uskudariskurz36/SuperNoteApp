@@ -18,7 +18,9 @@ namespace SuperNoteApp.Entities
 
         public bool IsDraft { get; set; }
         public DateTime CreatedDate { get; set; }
-        
+
+        public DateTime? ModifiedDate { get; set; }
+
         // Foreign Key kolon için.
         public int UserId { get; set; }
 

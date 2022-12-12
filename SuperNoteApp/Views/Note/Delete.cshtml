@@ -1,0 +1,49 @@
+﻿@using SuperNoteApp.Models.NoteModels;
+@model NoteEditModel
+
+<div class="row mb-3">
+    <div class="col">
+        <h1 class="display-4 border-bottom">Delete Note</h1>
+        <h4>Are you sure want to delete this note?</h4>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <dl>
+            <dt>Title</dt>
+            <dd>@Model.Title</dd>
+            <dt>Description</dt>
+            <dd>@Model.Description</dd>
+            <dt>Is Draft</dt>
+            <dd>
+                @if (Model.IsDraft)
+                {
+                    <i class="fa fa-check-circle text-success me-2"></i>
+                    <span>Draft</span>
+                }
+                else
+                {
+                    <i class="fa fa-times text-danger me-2"></i>
+                    <span>Published</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        @*<form method="post" asp-action="DeleteConfirm"
+              asp-route-id="@ViewContext.RouteData.Values["id"]">
+            <button type="submit" class="btn btn-danger btn-sm">Yes, Delete!</button>
+            <a asp-action="Index" class="btn btn-secondary btn-sm">Back to List!</a>
+        </form>*@
+
+
+        <form method="post">
+            <button type="submit" class="btn btn-danger btn-sm">Yes, Delete!</button>
+            <a asp-action="Index" class="btn btn-secondary btn-sm">Back to List!</a>
+        </form>
+    </div>
+</div>
