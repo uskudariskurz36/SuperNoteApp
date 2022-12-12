@@ -21,7 +21,33 @@ namespace SuperNoteApp.Controllers
             return View(notes);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            int? userid = HttpContext.Session.GetInt32("userid");
 
+            if (userid == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(string s)
+        {
+            int? userid = HttpContext.Session.GetInt32("userid");
+
+            if (userid == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Insert kodları gelecek.
+
+            return View();
+        }
 
         public IActionResult GenerateData()
         {
