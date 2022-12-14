@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SuperNoteApp.Entities;
+using SuperNoteApp.Helpers;
 using SuperNoteApp.Models;
 using System.Diagnostics;
 
@@ -13,9 +15,21 @@ namespace SuperNoteApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? userid = null)
         {
-            return View();
+            NoteManager noteManager = new NoteManager();
+            List<Note> notes = null;
+
+            if (userid == null)
+            {
+                notes = noteManager.GetNotesByNonPrivate();
+            }
+            else
+            {
+                notes = noteManager.GetNotesByNonPrivateAndUserId(userid.Value);
+            }
+
+            return View(notes);
         }
 
         public IActionResult Privacy()

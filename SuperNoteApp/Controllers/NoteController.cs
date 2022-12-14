@@ -19,7 +19,7 @@ namespace SuperNoteApp.Controllers
             NoteManager noteManager = new NoteManager();
             List<Note> notes = noteManager.GetNotesbyUserId(userid.Value);
 
-            if(sort == "desc")
+            if (sort == "desc")
             {
                 notes = (from n in notes
                          orderby n.CreatedDate descending
@@ -95,6 +95,7 @@ namespace SuperNoteApp.Controllers
                 Title = note.Title,
                 Description = note.Description,
                 IsDraft = note.IsDraft,
+                IsPrivate = note.IsPrivate,
             };
 
             return View(model);
@@ -115,7 +116,7 @@ namespace SuperNoteApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id) 
+        public IActionResult Delete(int id)
         {
             return Edit(id);
         }
@@ -124,7 +125,7 @@ namespace SuperNoteApp.Controllers
         [ActionName("Delete")]
         public IActionResult DeleteConfirm(int id)
         {
-            NoteManager noteManager =new NoteManager();
+            NoteManager noteManager = new NoteManager();
             noteManager.RemoveById(id);
 
             return RedirectToAction(nameof(Index));

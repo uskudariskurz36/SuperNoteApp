@@ -12,5 +12,6 @@ namespace SuperNoteApp.Models.NoteModels
         public string? Description { get; set; }
 
         public bool IsDraft { get; set; }
+        public bool IsPrivate { get; set; }
     }
 }

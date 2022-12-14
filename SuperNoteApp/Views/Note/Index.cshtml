@@ -36,6 +36,7 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Is Draft</th>
+                        <th>Is Private</th>
                         <th>Creadted Date</th>
                         <th>Modified Date</th>
                     </tr>
@@ -43,33 +44,43 @@
                 <tbody>
                     @foreach (Note n in Model)
                     {
-                    <tr>
-                        <td>
+                        <tr>
+                            <td>
                                 <a asp-action="Edit" asp-route-id="@n.Id" class="btn btn-info btn-sm text-white">
-                                <i class="fa fa-edit"></i>
-                                <span class="d-none d-sm-inline ms-2">Edit</span>
-                            </a>
+                                    <i class="fa fa-edit"></i>
+                                    <span class="d-none d-sm-inline ms-2">Edit</span>
+                                </a>
                                 <a asp-action="Delete" asp-route-id="@n.Id" class="btn btn-danger btn-sm">
-                                <i class="fa fa-trash"></i>
-                                <span class="d-none d-sm-inline ms-2">Delete</span>
-                            </a>
-                        </td>
-                        <td>@n.Id</td>
-                        <td>@n.Title</td>
-                        <td>@n.Description</td>
-                        <td>
-                            @if (n.IsDraft)
-                            {
-                            <i class="fa fa-check-circle text-success"></i>
-                            }
-                            else
-                            {
-                            <i class="fa fa-times text-danger"></i>
-                            }
-                        </td>
-                        <td>@n.CreatedDate</td>
-                        <td>@n.ModifiedDate</td>
-                    </tr>
+                                    <i class="fa fa-trash"></i>
+                                    <span class="d-none d-sm-inline ms-2">Delete</span>
+                                </a>
+                            </td>
+                            <td>@n.Id</td>
+                            <td>@n.Title</td>
+                            <td>@n.Description</td>
+                            <td>
+                                @if (n.IsDraft)
+                                {
+                                    <i class="fa fa-check-circle text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-times text-danger"></i>
+                                }
+                            </td>
+                            <td>
+                                @if (n.IsPrivate)
+                                {
+                                    <i class="fa fa-check-circle text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-times text-danger"></i>
+                                }
+                            </td>
+                            <td>@n.CreatedDate</td>
+                            <td>@n.ModifiedDate</td>
+                        </tr>
                     }
                 </tbody>
             </table>

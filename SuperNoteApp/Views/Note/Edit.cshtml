@@ -26,6 +26,10 @@
                 <label asp-for="IsDraft" class="col-form-label">Is Draft</label>
             </div>
             <div class="form-group">
+                <input asp-for="IsPrivate" type="checkbox" />
+                <label asp-for="IsPrivate" class="col-form-label">Is Private</label>
+            </div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-sm">Save</button>
                 <a class="btn btn-secondary btn-sm" asp-action="Index">Back to List!</a>
             </div>

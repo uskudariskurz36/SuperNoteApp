@@ -1,6 +1,5 @@
 ﻿using MFramework.Services.FakeData;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.EntityFrameworkCore;
 using SuperNoteApp.Entities;
 using SuperNoteApp.Models.NoteModels;
 
@@ -55,6 +54,7 @@ namespace SuperNoteApp.Helpers
                 Title = model.Title,
                 Description = model.Description,
                 IsDraft = model.IsDraft,
+                IsPrivate = model.IsPrivate,
                 CreatedDate = DateTime.Now,
                 UserId = userId,
             };
@@ -84,6 +84,7 @@ namespace SuperNoteApp.Helpers
             note.Title = model.Title;
             note.Description = model.Description;
             note.IsDraft = model.IsDraft;
+            note.IsPrivate = model.IsPrivate;
             note.ModifiedDate= DateTime.Now;
 
             db.SaveChanges();
@@ -100,6 +101,26 @@ namespace SuperNoteApp.Helpers
                 db.Notes.Remove(note);
                 db.SaveChanges();
             }
+        }
+
+        public List<Note> GetNotesByNonPrivate()
+        {
+            List<Note> notes = (from n in db.Notes.Include("User")
+                                where n.IsPrivate == false
+                                orderby n.CreatedDate descending
+                                select n).ToList();
+
+            return notes;
+        }
+
+        public List<Note> GetNotesByNonPrivateAndUserId(int userId)
+        {
+            List<Note> notes = (from n in db.Notes.Include("User")
+                                where n.IsPrivate == false && n.UserId == userId
+                                orderby n.CreatedDate descending
+                                select n).ToList();
+
+            return notes;
         }
     }
 }
