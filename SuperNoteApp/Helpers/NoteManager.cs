@@ -11,10 +11,15 @@ namespace SuperNoteApp.Helpers
 
         public List<Note> GetNotesbyUserId(int userId)
         {
+            // Lambda expression
+            List<Note> notes = db.Notes.Where(n => n.UserId == userId).ToList();
+
+
             // Select * From Notes Where UserId=@userId
-            List<Note> notes = (from n in db.Notes
-                                where n.UserId == userId
-                                select n).ToList();
+            //List<Note> notes = (from n in db.Notes
+            //                    where n.UserId == userId
+            //                    select n).ToList();
+
 
             return notes;
         }
@@ -65,9 +70,11 @@ namespace SuperNoteApp.Helpers
 
         public Note GetNoteById(int id)
         {
-            Note note = (from n in db.Notes
-                         where n.Id == id
-                         select n).FirstOrDefault();
+            Note note = db.Notes.Where(n => n.Id == id).FirstOrDefault();
+
+            //Note note = (from n in db.Notes
+            //             where n.Id == id
+            //             select n).FirstOrDefault();
 
             return note;
         }
@@ -92,9 +99,7 @@ namespace SuperNoteApp.Helpers
 
         public void RemoveById(int id)
         {
-            Note note = (from n in db.Notes
-                        where n.Id == id
-                        select n).FirstOrDefault();
+            Note note = GetNoteById(id);
 
             if (note != null)
             {
@@ -105,20 +110,30 @@ namespace SuperNoteApp.Helpers
 
         public List<Note> GetNotesByNonPrivate()
         {
-            List<Note> notes = (from n in db.Notes.Include("User")
-                                where n.IsPrivate == false
-                                orderby n.CreatedDate descending
-                                select n).ToList();
+            List<Note> notes = db.Notes
+                .Where(n => !n.IsPrivate)
+                .OrderByDescending(n => n.CreatedDate)
+                .ToList();
+
+            //List <Note> notes = (from n in db.Notes.Include("User")
+            //                    where n.IsPrivate == false
+            //                    orderby n.CreatedDate descending
+            //                    select n).ToList();
 
             return notes;
         }
 
         public List<Note> GetNotesByNonPrivateAndUserId(int userId)
         {
-            List<Note> notes = (from n in db.Notes.Include("User")
-                                where n.IsPrivate == false && n.UserId == userId
-                                orderby n.CreatedDate descending
-                                select n).ToList();
+            List<Note> notes = db.Notes
+                .Where(n => !n.IsPrivate && n.UserId == userId)
+                .OrderByDescending(n => n.CreatedDate)
+                .ToList();
+
+            //List<Note> notes = (from n in db.Notes.Include("User")
+            //                    where n.IsPrivate == false && n.UserId == userId
+            //                    orderby n.CreatedDate descending
+            //                    select n).ToList();
 
             return notes;
         }
